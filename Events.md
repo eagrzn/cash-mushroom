@@ -1,4 +1,4 @@
-# Черновичок для event stormin
+# Черновичок для event storming
 
 На сейчас:
 
