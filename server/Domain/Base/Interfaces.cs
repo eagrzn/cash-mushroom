@@ -10,9 +10,5 @@
 
     public interface IDomainEvent : IValueObject { }
 
-    public interface IException : IDomainEvent { }
-
     public interface ICommand : IValueObject { }
-
-    public interface IAggregateRoot : IEntity { }
 }
