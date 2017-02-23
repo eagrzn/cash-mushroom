@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace CashMushroom.Domain
 {
-    public class Product : Aggregate, IHandleCommand<Purchase>, IHandleCommand<Want>, IApplyEvent<ProductPurchased>, IApplyEvent<CostsTaken>
+    public class Product : Aggregate,
+        IHandleCommand<Purchase>,
+        IHandleCommand<Want>,
+        IApplyEvent<ProductPurchased>,
+        IApplyEvent<CostsTaken>
     {
         public String Name { get; private set; }
-        //public Friend Buyer { get; private set; }
-        //public IReadOnlyCollection<Friend> Owners { get; } = new List<Friend>();
-
-        public void Apply(ProductPurchased e)
-        {
-            Id = e.Id;
-            Name = e.Name;
-        }
-
-        public void Apply(CostsTaken e) { }
+        public Decimal Cost { get; private set; }
+        public Friend Buyer { get; private set; }
+        public IReadOnlyCollection<Friend> Payers { get; } = new List<Friend>();
 
         public IEnumerable Handle(Purchase c)
         {
-            if (EventsLoaded > 0)
-                throw new ProductAlreadyPurchased();
+            if (EventsLoaded > 0) throw new ProductAlreadyPurchased();
 
             yield return new ProductPurchased
             {
                 Id = c.Id,
+                ExpeditionId = c.ExpeditionId,
                 Name = c.Name,
-                Cost = c.Cost
+                Cost = c.Cost,
+                BuyerName = c.BuyerName,
+                BuyerTookCosts = c.BuyerTookCosts
             };
         }
 
@@ -35,33 +35,54 @@ namespace CashMushroom.Domain
             yield return new CostsTaken
             {
                 Id = c.Id,
-                FriendPhone = c.FriendPhone
+                PayerName = c.PayerName
             };
+        }
+
+        public void Apply(ProductPurchased e)
+        {
+            Id = e.Id;
+            Name = e.Name;
+            Cost = e.Cost;
+            Buyer = new Friend { Name = e.BuyerName };
+            if (e.BuyerTookCosts) (Payers as List<Friend>).Add(Buyer);
+        }
+
+        public void Apply(CostsTaken e)
+        {
+            var payer = new Friend { Name = e.PayerName };
+            (Payers as List<Friend>).Add(payer);
         }
     }
 
     public class Purchase : ICommand
     {
         public Guid Id { get; set; }
+        public Guid ExpeditionId { get; set; }
         public String Name { get; set; }
         public Decimal Cost { get; set; }
+        public String BuyerName { get; set; }
+        public bool BuyerTookCosts { get; set; }
     }
     public class Want : ICommand
     {
         public Guid Id { get; set; }
-        public String FriendPhone { get; set; }
+        public String PayerName { get; set; }
     }
 
     public class ProductPurchased : IDomainEvent
     {
         public Guid Id { get; set; }
+        public Guid ExpeditionId { get; set; }
         public String Name { get; set; }
         public Decimal Cost { get; set; }
+        public String BuyerName { get; set; }
+        public bool BuyerTookCosts { get; set; }
     }
     public class CostsTaken : IDomainEvent
     {
         public Guid Id { get; set; }
-        public String FriendPhone { get; set; }
+        public String PayerName { get; set; }
     }
 
     public class ProductAlreadyPurchased : Exception { }
