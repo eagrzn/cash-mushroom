@@ -13,8 +13,7 @@ namespace CashMushroom.Domain
 
         public IEnumerable Handle(Join c)
         {
-            if (Members.Any(f => f.Name == c.Name))
-                throw new NameAlreadyInvolved();
+            if (Members.Any(f => f.Name == c.Name)) throw new NameAlreadyInvolved();
 
             yield return new FriendJoined { Id = c.Id, Name = c.Name };
         }

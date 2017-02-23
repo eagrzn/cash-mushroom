@@ -125,5 +125,31 @@ namespace CashMushroom.Domain
 
             Test(Given(purchased), When(want), Then(costsTaken));
         }
+
+        [Test]
+        public void SamCantTakeCostsTwice()
+        {
+            var purchased = new ProductPurchased
+            {
+                Id = _1,
+                ExpeditionId = _2,
+                Name = _whiskey,
+                Cost = _2k,
+                BuyerName = _bob,
+                BuyerTookCosts = false
+            };
+            var costsTaken = new CostsTaken
+            {
+                Id = _1,
+                PayerName = _sam
+            };
+            var want = new Want
+            {
+                Id = _1,
+                PayerName = _sam
+            };
+
+            Test(Given(purchased, costsTaken), When(want), ThenFailWith<FriendAlreadyTookCosts>());
+        }
     }
 }

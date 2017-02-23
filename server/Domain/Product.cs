@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CashMushroom.Domain
 {
@@ -32,6 +33,8 @@ namespace CashMushroom.Domain
 
         public IEnumerable Handle(Want c)
         {
+            if (Payers.Any(f => f.Name == c.PayerName)) throw new FriendAlreadyTookCosts();
+
             yield return new CostsTaken
             {
                 Id = c.Id,
@@ -86,4 +89,5 @@ namespace CashMushroom.Domain
     }
 
     public class ProductAlreadyPurchased : Exception { }
+    public class FriendAlreadyTookCosts : Exception { }
 }
