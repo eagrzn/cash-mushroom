@@ -65,7 +65,7 @@ namespace CashMushroom.Domain
         public String Name { get; set; }
         public Decimal Cost { get; set; }
         public String BuyerName { get; set; }
-        public bool BuyerTookCosts { get; set; }
+        public Boolean BuyerTookCosts { get; set; }
     }
     public class Want : ICommand
     {
@@ -80,7 +80,7 @@ namespace CashMushroom.Domain
         public String Name { get; set; }
         public Decimal Cost { get; set; }
         public String BuyerName { get; set; }
-        public bool BuyerTookCosts { get; set; }
+        public Boolean BuyerTookCosts { get; set; }
     }
     public class CostsTaken : IDomainEvent
     {

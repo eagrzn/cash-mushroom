@@ -24,15 +24,20 @@ namespace CashMushroom.Domain
             var join = new Join
             {
                 Id = _1,
-                Name = _bob
+                FriendName = _bob
+            };
+            var started = new ExpeditionStarted
+            {
+                Id = _1,
+                Name = Expedition.GetName(_1, _bob)
             };
             var joined = new FriendJoined
             {
                 Id = _1,
-                Name = _bob
+                FriendName = _bob
             };
 
-            Test(Given(), When(join), Then(joined));
+            Test(Given(), When(join), Then(started, joined));
         }
 
         [Test]
@@ -41,17 +46,17 @@ namespace CashMushroom.Domain
             var bobJoined = new FriendJoined
             {
                 Id = _1,
-                Name = _bob
+                FriendName = _bob
             };
             var joinSam = new Join
             {
                 Id = _1,
-                Name = _sam
+                FriendName = _sam
             };
             var samJoined = new FriendJoined
             {
                 Id = _1,
-                Name = _sam
+                FriendName = _sam
             };
 
             Test(Given(bobJoined), When(joinSam), Then(samJoined));
@@ -63,15 +68,15 @@ namespace CashMushroom.Domain
             var joined = new FriendJoined
             {
                 Id = _1,
-                Name = _bob
+                FriendName = _bob
             };
             var join = new Join
             {
                 Id = _1,
-                Name = _bob
+                FriendName = _bob
             };
 
-            Test(Given(joined), When(join), ThenFailWith<NameAlreadyInvolved>());
+            Test(Given(joined), When(join), ThenFailWith<FriendAlreadyJoined>());
         }
     }
 }
