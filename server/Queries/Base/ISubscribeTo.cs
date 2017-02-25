@@ -1,0 +1,13 @@
+﻿using CashMushroom.Domain;
+
+namespace CashMushroom.Queries
+{
+    /// <summary>
+    /// Implemented by anything that wishes to subscribe to an event emitted by
+    /// an aggregate and successfully stored.
+    /// </summary>
+    public interface ISubscribeTo<E> where E : IDomainEvent
+    {
+        void Handle(E e);
+    }
+}
