@@ -6,17 +6,9 @@ namespace CashMushroom.Domain
     [TestFixture]
     public class ExpeditionTests : AggregateTests<Expedition>
     {
-        private Guid _1;
-        private String _bob;
-        private String _sam;
-
-        [SetUp]
-        public void Setup()
-        {
-            _1 = Guid.NewGuid();
-            _bob = "Bob";
-            _sam = "Sam";
-        }
+        private readonly Guid _1 = Guid.NewGuid();
+        private const String _bob = "Bob";
+        private const String _sam = "Sam";
 
         [Test]
         public void BobCanJoin()

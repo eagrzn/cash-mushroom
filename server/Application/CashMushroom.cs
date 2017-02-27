@@ -11,9 +11,14 @@ namespace CashMushroom.Application
             _dispatcher.SendCommand(command);
         }
 
-        public ExpeditionsList.Item[] GetExpeditionsList(String friendName)
+        public Expeditions.Expedition[] GetFriendExpeditions(String friendName)
         {
-            return _expeditionsList.GetExpeditions(friendName);
+            return _expeditions.GetByFriend(friendName);
+        }
+
+        public Expeditions.Product[] GetExpeditionProducts(Guid expeditionId)
+        {
+            return _expeditions.GetExpeditionProducts(expeditionId);
         }
 
         public CashMushroom()
@@ -23,11 +28,11 @@ namespace CashMushroom.Application
             _dispatcher.ScanInstance(new Expedition());
             _dispatcher.ScanInstance(new Product());
 
-            _expeditionsList = new ExpeditionsList();
-            _dispatcher.ScanInstance(_expeditionsList);
+            _expeditions = new Expeditions();
+            _dispatcher.ScanInstance(_expeditions);
         }
 
         private readonly MessageDispatcher _dispatcher;
-        private readonly ExpeditionsList _expeditionsList;
+        private readonly Expeditions _expeditions;
     }
 }

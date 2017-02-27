@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\ISubscribeTo.cs" />
-    <Compile Include="ExpeditionsList.cs" />
+    <Compile Include="Expeditions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

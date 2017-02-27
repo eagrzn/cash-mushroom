@@ -7,6 +7,7 @@ namespace CashMushroom.Domain
 {
     public class Expedition : Aggregate,
         IHandleCommand<Join>,
+        IApplyEvent<ExpeditionStarted>,
         IApplyEvent<FriendJoined>
     {
         public String Name { get; private set; }

@@ -6,23 +6,12 @@ namespace CashMushroom.Domain
     [TestFixture]
     public class ProductTests : AggregateTests<Product>
     {
-        private Guid _1;
-        private Guid _2;
-        private String _whiskey;
-        private Decimal _2k;
-        private String _bob;
-        private String _sam;
-
-        [SetUp]
-        public void Setup()
-        {
-            _1 = Guid.NewGuid();
-            _2 = Guid.NewGuid();
-            _whiskey = "Whiskey";
-            _2k = 2000;
-            _bob = "Bob";
-            _sam = "Sam";
-        }
+        private readonly Guid _1 = Guid.NewGuid();
+        private readonly Guid _2 = Guid.NewGuid();
+        private const String _whiskey = "Jack Daniel's";
+        private const Decimal _2k = 2000;
+        private const String _bob = "Bob";
+        private const String _sam = "Sam";
 
         [Test]
         public void BobCanPurchaseWhiskey()
