@@ -2,8 +2,8 @@
 
 namespace CashMushroom.Domain
 {
-    public interface IHandleCommand<C> where C : ICommand
+    public interface IHandleCommand<T> where T : ICommand
     {
-        IEnumerable Handle(C c);
+        IEnumerable Handle(T c);
     }
 }

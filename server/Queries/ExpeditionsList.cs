@@ -5,15 +5,15 @@ using CashMushroom.Domain;
 
 namespace CashMushroom.Queries
 {
-    public class ExpeditionsList : IExpeditionsListQueries,
+    public class ExpeditionsList :
         ISubscribeTo<ExpeditionStarted>,
         ISubscribeTo<FriendJoined>
     {
-        public Item[] GetExpeditions(String memberName)
+        public Item[] GetExpeditions(String friendName)
         {
-            if (!_friendExpeditions.ContainsKey(memberName)) return new Item[0];
+            if (!_friendExpeditions.ContainsKey(friendName)) return new Item[0];
 
-            var result = from fe in _friendExpeditions[memberName]
+            var result = from fe in _friendExpeditions[friendName]
                          join e in _expeditions on fe equals e.Key
                          select new Item { Id = fe, Name = e.Value };
             return result.ToArray();

@@ -8,7 +8,9 @@
     public interface IEntity : IDomainObject { }
 
 
-    public interface IDomainEvent : IValueObject { }
+    public interface IMessage : IValueObject { }
 
-    public interface ICommand : IValueObject { }
+    public interface IDomainEvent : IMessage { }
+
+    public interface ICommand : IMessage { }
 }

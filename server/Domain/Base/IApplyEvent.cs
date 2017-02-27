@@ -3,8 +3,8 @@
     /// <summary>
     /// Implemented by an aggregate once for each event type it can apply.
     /// </summary>
-    public interface IApplyEvent<E> where E : IDomainEvent
+    public interface IApplyEvent<T> where T : IDomainEvent
     {
-        void Apply(E e);
+        void Apply(T e);
     }
 }

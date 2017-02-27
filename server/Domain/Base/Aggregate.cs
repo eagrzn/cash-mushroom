@@ -18,7 +18,7 @@ namespace CashMushroom.Domain
         /// <summary>
         /// The unique ID of the aggregate.
         /// </summary>
-        public Guid Id { get; internal set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Enumerates the supplied events and applies them in order to the aggregate.
