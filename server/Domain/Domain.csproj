@@ -41,7 +41,6 @@
     <Compile Include="Base\IHandleCommand.cs" />
     <Compile Include="Base\IApplyEvent.cs" />
     <Compile Include="Friend.cs" />
-    <Compile Include="Expedition.cs" />
     <Compile Include="Base\Interfaces.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

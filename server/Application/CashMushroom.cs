@@ -11,28 +11,24 @@ namespace CashMushroom.Application
             _dispatcher.SendCommand(command);
         }
 
-        public Expeditions.Expedition[] GetFriendExpeditions(String friendName)
+        public T Get<T>() where T : class, IProjection
         {
-            return _expeditions.GetByFriend(friendName);
-        }
+            if (typeof(T) == typeof(Bill)) return _billBuilder.Bill as T;
 
-        public Expeditions.Product[] GetExpeditionProducts(Guid expeditionId)
-        {
-            return _expeditions.GetExpeditionProducts(expeditionId);
+            throw new NotImplementedException();
         }
 
         public CashMushroom()
         {
             _dispatcher = new MessageDispatcher(new InMemoryEventStore());
 
-            _dispatcher.ScanInstance(new Expedition());
             _dispatcher.ScanInstance(new Product());
 
-            _expeditions = new Expeditions();
-            _dispatcher.ScanInstance(_expeditions);
+            _billBuilder = new BillBuilder();
+            _dispatcher.ScanInstance(_billBuilder);
         }
 
         private readonly MessageDispatcher _dispatcher;
-        private readonly Expeditions _expeditions;
+        private readonly BillBuilder _billBuilder;
     }
 }

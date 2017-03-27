@@ -37,8 +37,9 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Interfaces.cs" />
     <Compile Include="Base\ISubscribeTo.cs" />
-    <Compile Include="Expeditions.cs" />
+    <Compile Include="Bill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

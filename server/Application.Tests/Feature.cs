@@ -7,7 +7,6 @@ namespace CashMushroom.Application
     {
         protected readonly Guid _1 = Guid.NewGuid();
         protected readonly Guid _2 = Guid.NewGuid();
-        protected readonly Guid _3 = Guid.NewGuid();
         protected const String _whiskey = "Jack Daniel's";
         protected const String _candies = "Skittles";
         protected const Decimal _2k = 2000;
