@@ -1,0 +1,11 @@
+install:
+  - nuget restore server\CashMushroom.sln
+
+platform: Any CPU
+configuration: Release
+
+build:
+  parallel: true
+  project: server\CashMushroom.sln
+
+  verbosity: minimal
