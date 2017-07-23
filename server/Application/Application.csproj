@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CashMushroom.Application</RootNamespace>
     <AssemblyName>CashMushroom.Application</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,11 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{a4c4b561-80c4-40cc-9c51-ea9da6086766}</Project>
+      <Project>{a8d6ac37-87df-45d6-bb3b-4c28880a9df0}</Project>
       <Name>Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Queries\Queries.csproj">
-      <Project>{c7a0c8a1-6a30-4140-bb9c-0705c3da11b2}</Project>
+      <Project>{cd26ab3c-0a9c-4237-beeb-7f3547e64045}</Project>
       <Name>Queries</Name>
     </ProjectReference>
   </ItemGroup>
