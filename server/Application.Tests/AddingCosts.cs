@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using CashMushroom.Domain;
+﻿using CashMushroom.Domain;
 using CashMushroom.Queries;
 using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 using TestStack.BDDfy;
 
 namespace CashMushroom.Application
@@ -58,7 +58,7 @@ namespace CashMushroom.Application
             {
                 Id = _1,
                 Buyer = _bob,
-                Payers = new[] {_bob},
+                Payers = new[] { _bob },
                 Cost = _2k,
                 Name = _whiskey
             };
@@ -73,7 +73,7 @@ namespace CashMushroom.Application
             {
                 Id = _2,
                 Buyer = _sam,
-                Payers = new[] {_sam},
+                Payers = new[] { _sam },
                 Cost = _500,
                 Name = _candies
             };
@@ -86,7 +86,7 @@ namespace CashMushroom.Application
             {
                 Id = _1,
                 Buyer = _bob,
-                Payers = new[] {_bob, _sam},
+                Payers = new[] { _bob, _sam },
                 Cost = _2k,
                 Name = _whiskey
             };
@@ -99,7 +99,7 @@ namespace CashMushroom.Application
             {
                 Id = _1,
                 Buyer = _bob,
-                Payers = new[] {_sam},
+                Payers = new[] { _sam },
                 Cost = _2k,
                 Name = _whiskey
             };
@@ -112,7 +112,7 @@ namespace CashMushroom.Application
 
         void AllCostsAreOnBob()
         {
-            var bill = App.Get<Bill>();
+            var bill = App.Get<Bill>(Tenant.Id);
             var bobPart = bill.Parties.Single(x => x.Name == _bob);
             bobPart.Total.Should().Be(_2k);
             var otherParts = bill.Parties.Where(x => x.Name != _bob);
@@ -121,35 +121,35 @@ namespace CashMushroom.Application
 
         void WhiskeyCostsAreOnBob()
         {
-            var bill = App.Get<Bill>();
+            var bill = App.Get<Bill>(Tenant.Id);
             var bobPart = bill.Parties.Single(x => x.Name == _bob);
             bobPart.Total.Should().Be(_2k);
         }
 
         void HalfOfWhiskeyCostsAreOnBob()
         {
-            var bill = App.Get<Bill>();
+            var bill = App.Get<Bill>(Tenant.Id);
             var bobPart = bill.Parties.Single(x => x.Name == _bob);
             bobPart.Total.Should().Be(_2k / 2);
         }
 
         void CandiesCostsAreOnSam()
         {
-            var bill = App.Get<Bill>();
+            var bill = App.Get<Bill>(Tenant.Id);
             var samPart = bill.Parties.Single(x => x.Name == _sam);
             samPart.Total.Should().Be(_500);
         }
 
         void HalfOfWhiskeyCostsAreOnSam()
         {
-            var bill = App.Get<Bill>();
+            var bill = App.Get<Bill>(Tenant.Id);
             var samPart = bill.Parties.Single(x => x.Name == _sam);
             samPart.Total.Should().Be(_2k / 2);
         }
 
         void AllCostsAreOnSam()
         {
-            var bill = App.Get<Bill>();
+            var bill = App.Get<Bill>(Tenant.Id);
             var samPart = bill.Parties.Single(x => x.Name == _sam);
             samPart.Total.Should().Be(_2k);
             var otherParts = bill.Parties.Where(x => x.Name != _sam);

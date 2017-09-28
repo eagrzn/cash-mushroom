@@ -1,13 +1,13 @@
-﻿using System;
+﻿using FrogsTalks.Domain;
+using FrogsTalks.UseCases;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CashMushroom.Domain
 {
-    public class Product : Aggregate,
-                           IHandleCommand<RecordCosts>,
-                           IApplyEvent<CostsRecorded>
+    public class Product : Aggregate
     {
         public String Name { get; private set; }
         public Decimal Cost { get; private set; }
@@ -16,7 +16,7 @@ namespace CashMushroom.Domain
 
         public IEnumerable Handle(RecordCosts c)
         {
-            if (EventsLoaded > 0) throw new ProductAlreadyPurchased();
+            if (Version > 0) throw new ProductAlreadyPurchased();
 
             yield return new CostsRecorded
             {
@@ -33,8 +33,8 @@ namespace CashMushroom.Domain
             Id = e.Id;
             Name = e.Name;
             Cost = e.Cost;
-            Buyer = new Friend {Name = e.Buyer};
-            ((List<Friend>)Payers).AddRange(e.Payers.Select(x => new Friend {Name = x}));
+            Buyer = new Friend { Name = e.Buyer };
+            ((List<Friend>)Payers).AddRange(e.Payers.Select(x => new Friend { Name = x }));
         }
     }
 
@@ -47,7 +47,7 @@ namespace CashMushroom.Domain
         public String[] Payers { get; set; }
     }
 
-    public class CostsRecorded : IDomainEvent
+    public class CostsRecorded : IEvent
     {
         public Guid Id { get; set; }
         public String Name { get; set; }

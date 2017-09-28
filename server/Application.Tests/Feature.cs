@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FrogsTalks.Application;
+using FrogsTalks.Application.Ports;
 using NUnit.Framework;
+using System;
 
 namespace CashMushroom.Application
 {
@@ -17,9 +19,15 @@ namespace CashMushroom.Application
         [SetUp]
         public void SetUp()
         {
-            App = new CashMushroom();
+            var writeDb = new InMemoryEventStore();
+            var readDb = new InMemoryStateStore();
+            var bus = new InMemoryBus();
+
+            App = new CashMushroom(bus, readDb);
+            new CashMushroomLogic(bus, writeDb);
+            new CashMushroomProjections(bus, readDb);
         }
 
-        protected CashMushroom App;
+        protected ApplicationFacade App;
     }
 }
