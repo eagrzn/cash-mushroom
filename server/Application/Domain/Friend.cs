@@ -1,7 +1,7 @@
 ﻿using FrogsTalks.Domain;
 using System;
 
-namespace CashMushroom.Domain
+namespace CashMushroom
 {
     public class Friend : ValueObject
     {

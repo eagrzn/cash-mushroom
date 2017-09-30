@@ -1,14 +1,13 @@
-﻿using CashMushroom.Domain;
-using CashMushroom.Queries;
-using FrogsTalks.Application;
+﻿using FrogsTalks.Application;
 using FrogsTalks.Application.Ports;
 using FrogsTalks.Domain;
 using FrogsTalks.UseCases;
 using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 
-namespace CashMushroom.Application
+namespace CashMushroom
 {
     public class CashMushroom : ApplicationFacade
     {
@@ -37,7 +36,7 @@ namespace CashMushroom.Application
                 case nameof(RecordCosts):
                     return (agg, cmd) =>
                     {
-                        var handler = typeof(Product).GetMethod(nameof(Product.Handle));
+                        var handler = typeof(Product).GetTypeInfo().GetMethod(nameof(Product.Handle));
                         var events = (IEnumerable)handler.Invoke(agg, new[] { cmd });
                         return events.OfType<IEvent>().ToArray();
                     };

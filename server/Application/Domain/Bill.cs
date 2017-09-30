@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CashMushroom.Queries
+namespace CashMushroom
 {
     public class Bill : IProjection
     {

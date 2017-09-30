@@ -1,18 +1,20 @@
-﻿using CashMushroom.Domain;
-using CashMushroom.Queries;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using FrogsTalks.Application;
+using FrogsTalks.Application.Ports;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 using TestStack.BDDfy;
 
-namespace CashMushroom.Application
+namespace CashMushroom.Specification
 {
-    [Story(AsA = "As a party",
+    [Story(AsA = "As a user",
         IWant = "I want to record the costs",
         SoThat = "So that I can share them with others")]
-    public class AddingCosts : Feature
+    [TestClass]
+    public class AddingCosts
     {
-        [Test]
+        [TestMethod]
         public void BobBuysSomethingForHimself()
         {
             this.When(_ => _.BobRecordsCostsForWhiskeyForHimself())
@@ -21,7 +23,7 @@ namespace CashMushroom.Application
                 .BDDfy();
         }
 
-        [Test]
+        [TestMethod]
         public void BobAndSamBuySomethingForThemselvesSolely()
         {
             this.When(_ => _.BobRecordsCostsForWhiskeyForHimself())
@@ -31,7 +33,7 @@ namespace CashMushroom.Application
                 .BDDfy();
         }
 
-        [Test]
+        [TestMethod]
         public void BobBuysSomethingAndShareItWithSam()
         {
             this.When(_ => _.BobRecordsCostsForWhiskeyForEverybody())
@@ -41,7 +43,7 @@ namespace CashMushroom.Application
                 .BDDfy();
         }
 
-        [Test]
+        [TestMethod]
         public void BobBuysSomethingForSam()
         {
             this.When(_ => _.BobRecordsCostsForWhiskeyForSam())
@@ -155,6 +157,33 @@ namespace CashMushroom.Application
             var otherParts = bill.Parties.Where(x => x.Name != _sam);
             otherParts.Sum(x => x.Total).Should().Be(0);
         }
+
+        #endregion
+
+        #region Stuff
+
+        [TestInitialize]
+        public void SetUp()
+        {
+            var writeDb = new InMemoryEventStore();
+            var readDb = new InMemoryStateStore();
+            var bus = new InMemoryBus();
+
+            App = new CashMushroom(bus, readDb);
+            new CashMushroomLogic(bus, writeDb);
+            new CashMushroomProjections(bus, readDb);
+        }
+
+        protected ApplicationFacade App;
+
+        protected readonly Guid _1 = Guid.NewGuid();
+        protected readonly Guid _2 = Guid.NewGuid();
+        protected const String _whiskey = "Jack Daniel's";
+        protected const String _candies = "Skittles";
+        protected const Decimal _2k = 2000;
+        protected const Decimal _500 = 500;
+        protected const String _bob = "Bob";
+        protected const String _sam = "Sam";
 
         #endregion
     }

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CashMushroom.Domain
+namespace CashMushroom
 {
     public class Product : Aggregate
     {
